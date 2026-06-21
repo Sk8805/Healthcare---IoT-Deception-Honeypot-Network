@@ -1,58 +1,40 @@
+import StatCard from "./components/StatCard";
+
 function App() {
   return (
     <div
       style={{
-        backgroundColor: "#0f172a",
+        backgroundColor: "#071330",
         minHeight: "100vh",
+        width: "100vw",
         color: "white",
-        padding: "30px",
-        fontFamily: "Arial",
+        padding: "40px",
+        boxSizing: "border-box",
+        fontFamily: "Arial, sans-serif",
       }}
     >
-      <h1>Healthcare IoT Deception Honeypot Dashboard</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize: "42px",
+          marginBottom: "50px",
+          marginTop: "20px",
+        }}
+      >
+        Healthcare IoT Deception Honeypot Dashboard
+      </h1>
 
       <div
         style={{
           display: "flex",
-          gap: "20px",
-          marginTop: "20px",
+          justifyContent: "center",
+          gap: "25px",
+          flexWrap: "wrap",
         }}
       >
-        <div
-          style={{
-            background: "#1e293b",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "220px",
-          }}
-        >
-          <h3>Total Attacks</h3>
-          <h2>120</h2>
-        </div>
-
-        <div
-          style={{
-            background: "#1e293b",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "220px",
-          }}
-        >
-          <h3>Unique Attackers</h3>
-          <h2>45</h2>
-        </div>
-
-        <div
-          style={{
-            background: "#1e293b",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "220px",
-          }}
-        >
-          <h3>Active Honeypots</h3>
-          <h2>3</h2>
-        </div>
+        <StatCard title="Total Attacks" value="120" />
+        <StatCard title="Unique Attackers" value="45" />
+        <StatCard title="Active Honeypots" value="3" />
       </div>
     </div>
   );
