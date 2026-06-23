@@ -1,5 +1,6 @@
 import Sidebar from "./components/Sidebar";
 import StatCard from "./components/StatCard";
+import AttackLogs from "./components/AttackLogs";
 
 function App() {
   return (
@@ -25,11 +26,12 @@ function App() {
             marginBottom: "40px",
             fontSize: "40px",
             color: "#f8fafc",
-            }}
+          }}
         >
-            Healthcare IoT Deception Honeypot Dashboard
+          Healthcare IoT Deception Honeypot Dashboard
         </h1>
 
+        {/* Statistics Cards */}
         <div
           style={{
             display: "flex",
@@ -42,6 +44,10 @@ function App() {
           <StatCard title="Unique Attackers" value="45" />
           <StatCard title="Active Honeypots" value="3" />
         </div>
+
+        {/* Attack Logs Table */}
+        <AttackLogs />
+
       </div>
     </div>
   );
