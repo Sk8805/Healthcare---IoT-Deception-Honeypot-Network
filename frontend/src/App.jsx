@@ -1,6 +1,7 @@
 import Sidebar from "./components/Sidebar";
 import StatCard from "./components/StatCard";
 import AttackLogs from "./components/AttackLogs";
+import HoneypotStatus from "./components/HoneypotStatus";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             justifyContent: "center",
             gap: "25px",
             flexWrap: "wrap",
+            marginBottom: "30px",
           }}
         >
           <StatCard title="Total Attacks" value="120" />
@@ -45,9 +47,11 @@ function App() {
           <StatCard title="Active Honeypots" value="3" />
         </div>
 
-        {/* Attack Logs Table */}
+        {/* Attack Logs */}
         <AttackLogs />
 
+        {/* Honeypot Status */}
+        <HoneypotStatus />
       </div>
     </div>
   );
