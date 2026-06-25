@@ -2,6 +2,7 @@ import Sidebar from "./components/Sidebar";
 import StatCard from "./components/StatCard";
 import AttackLogs from "./components/AttackLogs";
 import HoneypotStatus from "./components/HoneypotStatus";
+import ThreatAnalytics from "./components/ThreatAnalytics";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
 
         {/* Honeypot Status */}
         <HoneypotStatus />
+        <ThreatAnalytics />
       </div>
     </div>
   );
