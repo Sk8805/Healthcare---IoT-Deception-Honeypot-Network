@@ -3,6 +3,7 @@ import StatCard from "./components/StatCard";
 import AttackLogs from "./components/AttackLogs";
 import HoneypotStatus from "./components/HoneypotStatus";
 import ThreatAnalytics from "./components/ThreatAnalytics";
+import SecurityAlerts from "./components/SecurityAlerts";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
         {/* Honeypot Status */}
         <HoneypotStatus />
         <ThreatAnalytics />
+        <SecurityAlerts />
       </div>
     </div>
   );
