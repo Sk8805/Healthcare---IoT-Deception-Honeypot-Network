@@ -1,0 +1,4 @@
+pymongo>=4.17.0
+requests>=2.32.5
+python-dotenv>=1.2.1
+elasticsearch>=8.19.0
