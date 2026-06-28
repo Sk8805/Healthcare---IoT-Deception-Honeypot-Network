@@ -19,3 +19,8 @@
 {"eventid":"cowrie.session.closed","duration":"138.0","message":"Connection lost after 138.0 seconds","sensor":"35c8d2e6f157","uuid":"395b6426-6be1-11f1-8297-9694b29e76e5","timestamp":"2026-06-23T13:41:12.866878Z","src_ip":"172.19.0.1","session":"6d92b921534a","protocol":"ssh"}
 {"eventid":"cowrie.session.connect","src_ip":"172.19.0.1","src_port":55458,"dst_ip":"172.19.0.2","dst_port":2222,"session":"6d92b921534a","protocol":"ssh","message":"New connection: 172.19.0.1:55458 (172.19.0.2:2222) [session: 6d92b921534a]","sensor":"35c8d2e6f157","uuid":"395b6426-6be1-11f1-8297-9694b29e76e5","timestamp":"2026-06-23T13:38:54.845978Z"}
 {"eventid":"cowrie.client.version","version":"SSH-2.0-OpenSSH_for_Windows_9.5","message":"Remote SSH version: SSH-2.0-OpenSSH_for_Windows_9.5","sensor":"35c8d2e6f157","uuid":"395b6426-6be1-11f1-8297-9694b29e76e5","timestamp":"2026-06-23T13:38:54.882353Z","src_ip":"172.19.0.1","session":"6d92b921534a","protocol":"ssh"}
+The Cowrie honeypot was safely exposed to a controlled testing network.  
+Connection attempts over SSH and Telnet were verified, including brute‑force login attempts with `root/2004`.  
+Cowrie successfully captured these events in `cowrie.json`, logging both failed logins and command inputs such as `ls` and `exit`.  
+Session closures were also recorded, confirming complete interaction tracking.  
+This demonstrates that Cowrie is properly capturing attacker behavior and validating the exposure milestone.
