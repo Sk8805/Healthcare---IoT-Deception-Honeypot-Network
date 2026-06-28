@@ -4,6 +4,7 @@ import AttackLogs from "./components/AttackLogs";
 import HoneypotStatus from "./components/HoneypotStatus";
 import ThreatAnalytics from "./components/ThreatAnalytics";
 import SecurityAlerts from "./components/SecurityAlerts";
+import TopTargets from "./components/TopTargets";
 
 function App() {
   return (
@@ -15,14 +16,17 @@ function App() {
         minHeight: "100vh",
       }}
     >
+      {/* Sidebar */}
       <Sidebar />
 
+      {/* Main Content */}
       <div
         style={{
           flex: 1,
           padding: "40px",
         }}
       >
+        {/* Dashboard Heading */}
         <h1
           style={{
             textAlign: "center",
@@ -54,8 +58,15 @@ function App() {
 
         {/* Honeypot Status */}
         <HoneypotStatus />
+
+        {/* Threat Analytics */}
         <ThreatAnalytics />
+
+        {/* Recent Security Alerts */}
         <SecurityAlerts />
+
+        {/* Top Targeted Devices */}
+        <TopTargets />
       </div>
     </div>
   );
