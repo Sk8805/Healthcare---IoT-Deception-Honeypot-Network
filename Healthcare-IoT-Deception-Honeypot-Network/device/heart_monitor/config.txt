@@ -1,0 +1,5 @@
+DeviceName=Healthcare IoT Monitor v1.0
+FirmwareVersion=1.2.3
+Port=1883
+Encryption=Enabled
+HeartbeatInterval=60s
