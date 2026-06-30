@@ -1,10 +1,14 @@
+import { Link, useLocation } from "react-router-dom";
+
 function Sidebar() {
+  const location = useLocation();
+
   const menuItems = [
-    "Dashboard",
-    "Attack Logs",
-    "Threat Analytics",
-    "Honeypots",
-    "Settings",
+    { name: "Dashboard", path: "/" },
+    { name: "Threat Monitoring", path: "/threat-monitoring" },
+    { name: "Threat Analytics", path: "/threat-analytics" },
+    { name: "Firewall Logs", path: "/firewall-logs" },
+    { name: "Settings", path: "/settings" },
   ];
 
   return (
@@ -29,22 +33,32 @@ function Sidebar() {
       </h1>
 
       {menuItems.map((item, index) => (
-        <div
+        <Link
           key={index}
+          to={item.path}
           style={{
-            padding: "14px 18px",
-            marginBottom: "12px",
-            borderRadius: "10px",
-            cursor: "pointer",
-            backgroundColor:
-              item === "Dashboard" ? "#1e293b" : "transparent",
-            transition: "0.3s",
-            fontSize: "16px",
-            fontWeight: "500",
+            textDecoration: "none",
+            color: "white",
           }}
         >
-          {item}
-        </div>
+          <div
+            style={{
+              padding: "14px 18px",
+              marginBottom: "12px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              backgroundColor:
+                location.pathname === item.path
+                  ? "#1e293b"
+                  : "transparent",
+              transition: "0.3s",
+              fontSize: "16px",
+              fontWeight: "500",
+            }}
+          >
+            {item.name}
+          </div>
+        </Link>
       ))}
     </div>
   );
