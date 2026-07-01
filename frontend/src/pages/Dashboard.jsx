@@ -1,18 +1,10 @@
 import StatCard from "../components/StatCard";
+import DashboardHeader from "../components/DashboardHeader";
 
 function Dashboard() {
   return (
     <>
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "40px",
-          fontSize: "40px",
-          color: "#f8fafc",
-        }}
-      >
-        Healthcare IoT Deception Honeypot Dashboard
-      </h1>
+      <DashboardHeader />
 
       <div
         style={{
