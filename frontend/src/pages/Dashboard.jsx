@@ -1,5 +1,6 @@
 import StatCard from "../components/StatCard";
 import DashboardHeader from "../components/DashboardHeader";
+import ActivityTimeline from "../components/ActivityTimeline";
 
 function Dashboard() {
   return (
@@ -18,6 +19,8 @@ function Dashboard() {
         <StatCard title="Unique Attackers" value="45" />
         <StatCard title="Active Honeypots" value="3" />
       </div>
+
+      <ActivityTimeline />
     </>
   );
 }
