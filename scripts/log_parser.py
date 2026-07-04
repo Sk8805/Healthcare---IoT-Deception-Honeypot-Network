@@ -1,3 +1,4 @@
+import re
 import json
 
 def normalize_log_entry(entry):
@@ -11,19 +12,29 @@ def normalize_log_entry(entry):
     except json.JSONDecodeError:
         return {"message": entry.strip()}
 
+def extract_attacker_ip(log_entry):
+    """
+    Extract attacker IP address from a normalized log entry.
+    - If JSON, look for keys like 'attacker_ip' or 'ip'.
+    - If plain text, use regex.
+    """
+    # Case 1: JSON dict
+    if isinstance(log_entry, dict):
+        for key in ["attacker_ip", "ip", "source_ip"]:
+            if key in log_entry:
+                return log_entry[key]
 
-def load_log_file(filepath):
-    with open(filepath, "r", encoding="utf-8") as f:
-        return f.readlines()
+        # fallback: regex search inside values
+        for value in log_entry.values():
+            if isinstance(value, str):
+                match = re.search(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", value)
+                if match:
+                    return match.group(0)
 
+    # Case 2: Plain text dict {"message": "..."}
+    if "message" in log_entry:
+        match = re.search(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", log_entry["message"])
+        if match:
+            return match.group(0)
 
-def parse_logs(filepath):
-    raw_entries = load_log_file(filepath)
-    return [normalize_log_entry(e) for e in raw_entries]
-
-
-if __name__ == "__main__":
-    sample_file = "sample_logs.txt"
-    logs = parse_logs(sample_file)
-    for log in logs:
-        print(log)
+    return None

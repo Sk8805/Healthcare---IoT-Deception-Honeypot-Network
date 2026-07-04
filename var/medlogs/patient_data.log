@@ -1,0 +1,3 @@
+[2026-06-24 10:00:00] PatientID: 1023 | HeartRate: 78 bpm | Status: Normal
+[2026-06-24 10:05:00] PatientID: 1023 | HeartRate: 82 bpm | Status: Normal
+[2026-06-24 10:10:00] PatientID: 1023 | HeartRate: 95 bpm | Status: Alert - Elevated
