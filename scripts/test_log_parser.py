@@ -1,5 +1,5 @@
 import unittest
-from scripts.parser import normalize_log_entry, extract_attacker_ip
+from scripts.log_parser import normalize_log_entry, extract_attacker_ip
 
 class TestParser(unittest.TestCase):
     def test_json_ip_extraction(self):
