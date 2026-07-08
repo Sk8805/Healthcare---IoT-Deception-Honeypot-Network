@@ -1,0 +1,9 @@
+def test_extract_from_sample_file():
+    with open("tests/data/honeypot_log_sample.txt") as f:
+        log = f.read()
+    ips = extract_ips(log)
+    domains = extract_domains(log)
+    hashes = extract_hashes(log)
+    assert len(ips) > 0
+    assert len(domains) > 0
+    assert len(hashes) > 0
