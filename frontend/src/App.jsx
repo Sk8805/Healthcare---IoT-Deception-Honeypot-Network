@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
+import LoadingScreen from "./components/LoadingScreen";
 
 import Dashboard from "./pages/Dashboard";
 import ThreatMonitoring from "./pages/ThreatMonitoring";
@@ -11,6 +12,15 @@ import Settings from "./pages/Settings";
 
 function App() {
   const [theme, setTheme] = useState("dark");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const darkTheme = {
     background: "#071330",
@@ -23,6 +33,10 @@ function App() {
   };
 
   const currentTheme = theme === "dark" ? darkTheme : lightTheme;
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div
