@@ -1,6 +1,7 @@
 import StatCard from "../components/StatCard";
 import DashboardHeader from "../components/DashboardHeader";
 import ActivityTimeline from "../components/ActivityTimeline";
+import DeviceOverview from "../components/DeviceOverview";
 
 function Dashboard() {
   return (
@@ -21,6 +22,8 @@ function Dashboard() {
       </div>
 
       <ActivityTimeline />
+
+      <DeviceOverview />
     </>
   );
 }
