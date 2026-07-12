@@ -2,6 +2,7 @@ import StatCard from "../components/StatCard";
 import DashboardHeader from "../components/DashboardHeader";
 import ActivityTimeline from "../components/ActivityTimeline";
 import DeviceOverview from "../components/DeviceOverview";
+import NotificationCenter from "../components/NotificationCenter";
 
 function Dashboard() {
   return (
@@ -22,6 +23,8 @@ function Dashboard() {
       </div>
 
       <ActivityTimeline />
+
+      <NotificationCenter />
 
       <DeviceOverview />
     </>
