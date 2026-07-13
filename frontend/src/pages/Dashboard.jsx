@@ -3,6 +3,7 @@ import DashboardHeader from "../components/DashboardHeader";
 import ActivityTimeline from "../components/ActivityTimeline";
 import DeviceOverview from "../components/DeviceOverview";
 import NotificationCenter from "../components/NotificationCenter";
+import AttackChart from "../components/AttackChart";
 
 function Dashboard() {
   return (
@@ -27,6 +28,8 @@ function Dashboard() {
       <NotificationCenter />
 
       <DeviceOverview />
+
+      <AttackChart />
     </>
   );
 }
