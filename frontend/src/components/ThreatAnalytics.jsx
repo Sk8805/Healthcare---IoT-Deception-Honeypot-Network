@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
+
 function ThreatAnalytics() {
-  const analytics = [
-    { title: "SSH Attacks", value: 78 },
-    { title: "Telnet Attempts", value: 25 },
-    { title: "HTTP Scans", value: 17 },
-    { title: "Blocked Threats", value: 102 },
-  ];
+  const [analytics, setAnalytics] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/analytics")
+      .then((res) => res.json())
+      .then((data) => setAnalytics(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -15,7 +19,9 @@ function ThreatAnalytics() {
         borderRadius: "12px",
       }}
     >
-      <h2 style={{ marginBottom: "20px" }}>Threat Analytics</h2>
+      <h2 style={{ marginBottom: "20px" }}>
+        Threat Analytics
+      </h2>
 
       <div
         style={{

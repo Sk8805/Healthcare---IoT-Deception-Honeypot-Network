@@ -1,28 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AttackLogs() {
-  const logs = [
-    {
-      time: "2026-06-23 10:15",
-      ip: "192.168.1.101",
-      device: "Patient Monitor",
-      status: "Blocked",
-    },
-    {
-      time: "2026-06-23 10:22",
-      ip: "10.0.0.55",
-      device: "Infusion Pump",
-      status: "Detected",
-    },
-    {
-      time: "2026-06-23 10:35",
-      ip: "172.16.0.12",
-      device: "ECG Monitor",
-      status: "Blocked",
-    },
-  ];
-
+  const [logs, setLogs] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/logs")
+      .then((res) => res.json())
+      .then((data) => {
+        setLogs(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const filteredLogs = logs.filter(
     (log) =>
@@ -39,7 +28,9 @@ function AttackLogs() {
         marginTop: "30px",
       }}
     >
-      <h2 style={{ marginBottom: "20px" }}>Recent Attack Logs</h2>
+      <h2 style={{ marginBottom: "20px" }}>
+        Recent Attack Logs
+      </h2>
 
       <input
         type="text"
@@ -67,22 +58,31 @@ function AttackLogs() {
       >
         <thead>
           <tr>
-            <th>Timestamp</th>
-            <th>Source IP</th>
-            <th>Device</th>
-            <th>Status</th>
+            <th style={{ padding: "12px" }}>Timestamp</th>
+            <th style={{ padding: "12px" }}>Source IP</th>
+            <th style={{ padding: "12px" }}>Device</th>
+            <th style={{ padding: "12px" }}>Status</th>
           </tr>
         </thead>
 
         <tbody>
           {filteredLogs.map((log, index) => (
             <tr key={index}>
-              <td style={{ padding: "12px" }}>{log.time}</td>
-              <td>{log.ip}</td>
-              <td>{log.device}</td>
+              <td style={{ padding: "12px" }}>
+                {log.timestamp}
+              </td>
+
+              <td style={{ padding: "12px" }}>
+                {log.ip}
+              </td>
+
+              <td style={{ padding: "12px" }}>
+                {log.device}
+              </td>
 
               <td
                 style={{
+                  padding: "12px",
                   color:
                     log.status === "Blocked"
                       ? "#22c55e"

@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
+
 function HoneypotStatus() {
-  const devices = [
-    { name: "Patient Monitor", status: "Online" },
-    { name: "Infusion Pump", status: "Online" },
-    { name: "ECG Monitor", status: "Online" },
-    
-  ];
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/devices")
+      .then((res) => res.json())
+      .then((data) => setDevices(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -28,7 +32,15 @@ function HoneypotStatus() {
           }}
         >
           <span>{device.name}</span>
-          <span style={{ color: "#22c55e" }}>
+
+          <span
+            style={{
+              color:
+                device.status === "Online"
+                  ? "#22c55e"
+                  : "#ef4444",
+            }}
+          >
             ● {device.status}
           </span>
         </div>

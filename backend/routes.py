@@ -18,9 +18,7 @@ def register_routes(app):
     def dashboard():
         return jsonify({
             "total_attacks": len(attack_logs),
-            "unique_attackers": len(
-                set(log["ip"] for log in attack_logs)
-            ),
+            "unique_attackers": len(set(log["ip"] for log in attack_logs)),
             "active_honeypots": len(
                 [device for device in devices if device["status"] == "Online"]
             )
@@ -38,7 +36,7 @@ def register_routes(app):
     def logs():
         return jsonify(attack_logs)
 
-    # ---------------- Device Overview ---------------- #
+    # ---------------- Devices ---------------- #
 
     @app.route("/api/devices")
     def device_status():
@@ -108,7 +106,7 @@ def register_routes(app):
             }
         ])
 
-    # ---------------- Attack Chart ---------------- #
+    # ---------------- Attack Distribution Chart ---------------- #
 
     @app.route("/api/chart")
     def chart():
@@ -130,3 +128,96 @@ def register_routes(app):
                 4
             ]
         })
+
+    # ---------------- Threat Analytics ---------------- #
+
+    @app.route("/api/analytics")
+    def analytics():
+        return jsonify([
+            {
+                "title": "SSH Attacks",
+                "value": 78
+            },
+            {
+                "title": "Telnet Attempts",
+                "value": 25
+            },
+            {
+                "title": "HTTP Scans",
+                "value": 17
+            },
+            {
+                "title": "Blocked Threats",
+                "value": 102
+            }
+        ])
+
+    # ---------------- Top Targeted Devices ---------------- #
+
+    @app.route("/api/top-targets")
+    def top_targets():
+        return jsonify([
+            {
+                "name": "Patient Monitor",
+                "attacks": 42
+            },
+            {
+                "name": "Infusion Pump",
+                "attacks": 31
+            },
+            {
+                "name": "ECG Monitor",
+                "attacks": 24
+            },
+            {
+                "name": "Smart Ventilator",
+                "attacks": 18
+            }
+        ])
+
+    # ---------------- Firewall Logs ---------------- #
+
+    @app.route("/api/firewall-logs")
+    def firewall_logs():
+        return jsonify([
+            {
+                "time": "2026-06-23 10:15",
+                "source_ip": "192.168.1.101",
+                "port": 22,
+                "protocol": "SSH",
+                "action": "Blocked",
+                "severity": "Critical"
+            },
+            {
+                "time": "2026-06-23 10:22",
+                "source_ip": "10.0.0.55",
+                "port": 80,
+                "protocol": "HTTP",
+                "action": "Allowed",
+                "severity": "Low"
+            },
+            {
+                "time": "2026-06-23 10:35",
+                "source_ip": "172.16.0.12",
+                "port": 23,
+                "protocol": "Telnet",
+                "action": "Blocked",
+                "severity": "High"
+            },
+            {
+                "time": "2026-06-23 10:42",
+                "source_ip": "192.168.1.150",
+                "port": 21,
+                "protocol": "FTP",
+                "action": "Blocked",
+                "severity": "Medium"
+            },
+            {
+                "time": "2026-06-23 10:50",
+                "source_ip": "203.0.113.20",
+                "port": 25,
+                "protocol": "SMTP",
+                "action": "Allowed",
+                "severity": "Low"
+            }
+        ])

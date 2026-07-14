@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
+
 function TopTargets() {
-  const devices = [
-    { name: "Patient Monitor", attacks: 42 },
-    { name: "Infusion Pump", attacks: 31 },
-    { name: "ECG Monitor", attacks: 24 },
-    { name: "Smart Ventilator", attacks: 18 },
-  ];
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/top-targets")
+      .then((res) => res.json())
+      .then((data) => setDevices(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -15,10 +19,12 @@ function TopTargets() {
         padding: "25px",
       }}
     >
-      <h2 style={{ marginBottom: "20px" }}>Top Targeted Devices</h2>
+      <h2 style={{ marginBottom: "20px" }}>
+        Top Targeted Devices
+      </h2>
 
-      {devices.map((device) => (
-        <div key={device.name} style={{ marginBottom: "18px" }}>
+      {devices.map((device, index) => (
+        <div key={index} style={{ marginBottom: "18px" }}>
           <div
             style={{
               display: "flex",

@@ -1,30 +1,29 @@
+import { useEffect, useState } from "react";
+
 function SecurityAlerts() {
-  const alerts = [
-    {
-      level: "Critical",
-      message: "Multiple SSH brute-force attempts detected",
-      time: "2 mins ago",
-    },
-    {
-      level: "High",
-      message: "Unauthorized Telnet login detected",
-      time: "10 mins ago",
-    },
-    {
-      level: "Medium",
-      message: "HTTP scan detected on Patient Monitor",
-      time: "18 mins ago",
-    },
-  ];
+  const [alerts, setAlerts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/alerts")
+      .then((res) => res.json())
+      .then((data) => setAlerts(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const getColor = (level) => {
     switch (level) {
       case "Critical":
         return "#ef4444";
+
       case "High":
         return "#f97316";
+
       case "Medium":
         return "#eab308";
+
+      case "Info":
+        return "#38bdf8";
+
       default:
         return "#22c55e";
     }
