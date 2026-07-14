@@ -4,6 +4,8 @@ from database import attack_logs, devices
 
 def register_routes(app):
 
+    # ---------------- Home ---------------- #
+
     @app.route("/")
     def home():
         return jsonify({
@@ -16,7 +18,9 @@ def register_routes(app):
     def dashboard():
         return jsonify({
             "total_attacks": len(attack_logs),
-            "unique_attackers": len(set(log["ip"] for log in attack_logs)),
+            "unique_attackers": len(
+                set(log["ip"] for log in attack_logs)
+            ),
             "active_honeypots": len(
                 [device for device in devices if device["status"] == "Online"]
             )
@@ -34,7 +38,7 @@ def register_routes(app):
     def logs():
         return jsonify(attack_logs)
 
-    # ---------------- Devices ---------------- #
+    # ---------------- Device Overview ---------------- #
 
     @app.route("/api/devices")
     def device_status():
@@ -48,6 +52,11 @@ def register_routes(app):
             {
                 "event": "SSH brute-force attack detected",
                 "time": "10:45",
+                "severity": "Critical"
+            },
+            {
+                "event": "Malware payload uploaded",
+                "time": "10:43",
                 "severity": "Critical"
             },
             {
@@ -78,9 +87,19 @@ def register_routes(app):
                 "time": "Just now"
             },
             {
+                "level": "Critical",
+                "message": "Malware upload detected from 192.168.1.101",
+                "time": "1 min ago"
+            },
+            {
                 "level": "High",
                 "message": "Unauthorized Telnet login blocked",
                 "time": "2 mins ago"
+            },
+            {
+                "level": "Medium",
+                "message": "HTTP vulnerability scan detected",
+                "time": "5 mins ago"
             },
             {
                 "level": "Info",
@@ -99,13 +118,15 @@ def register_routes(app):
                 "HTTP",
                 "FTP",
                 "Telnet",
-                "SMTP"
+                "SMTP",
+                "DNS"
             ],
             "values": [
-                18,
-                12,
-                7,
-                10,
-                5
+                25,
+                16,
+                9,
+                13,
+                6,
+                4
             ]
         })

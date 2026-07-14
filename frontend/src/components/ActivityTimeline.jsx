@@ -1,26 +1,28 @@
+import { useEffect, useState } from "react";
+
 function ActivityTimeline() {
-  const activities = [
-    {
-      time: "10:45",
-      event: "SSH brute-force attack detected",
-      color: "#ef4444",
-    },
-    {
-      time: "10:42",
-      event: "New honeypot device registered",
-      color: "#38bdf8",
-    },
-    {
-      time: "10:38",
-      event: "Firewall blocked suspicious IP",
-      color: "#22c55e",
-    },
-    {
-      time: "10:31",
-      event: "HTTP scan detected",
-      color: "#f59e0b",
-    },
-  ];
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/activity")
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((item) => ({
+          ...item,
+          color:
+            item.severity === "Critical"
+              ? "#ef4444"
+              : item.severity === "High"
+              ? "#22c55e"
+              : item.severity === "Medium"
+              ? "#f59e0b"
+              : "#38bdf8",
+        }));
+
+        setActivities(formatted);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
