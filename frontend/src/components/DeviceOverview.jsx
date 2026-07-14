@@ -1,24 +1,14 @@
+import { useEffect, useState } from "react";
+
 function DeviceOverview() {
-  const devices = [
-    {
-      name: "Patient Monitor",
-      ip: "192.168.1.10",
-      status: "Online",
-      port: 22,
-    },
-    {
-      name: "Infusion Pump",
-      ip: "192.168.1.20",
-      status: "Online",
-      port: 23,
-    },
-    {
-      name: "ECG Monitor",
-      ip: "192.168.1.30",
-      status: "Offline",
-      port: 80,
-    },
-  ];
+  const [devices, setDevices] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/devices")
+      .then((res) => res.json())
+      .then((data) => setDevices(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -43,11 +33,6 @@ function DeviceOverview() {
         >
           <div>
             <strong>{device.name}</strong>
-            <div>{device.ip}</div>
-          </div>
-
-          <div>
-            Port {device.port}
           </div>
 
           <div
@@ -56,6 +41,7 @@ function DeviceOverview() {
                 device.status === "Online"
                   ? "#22c55e"
                   : "#ef4444",
+              fontWeight: "bold",
             }}
           >
             ● {device.status}
