@@ -1,30 +1,28 @@
+import { useEffect, useState } from "react";
+
 function NotificationCenter() {
-  const notifications = [
-    {
-      level: "Critical",
-      message: "Multiple SSH brute-force attempts detected",
-      time: "Just now",
-      color: "#ef4444",
-    },
-    {
-      level: "High",
-      message: "Unauthorized Telnet login blocked",
-      time: "2 mins ago",
-      color: "#f97316",
-    },
-    {
-      level: "Info",
-      message: "New honeypot device registered successfully",
-      time: "8 mins ago",
-      color: "#38bdf8",
-    },
-    {
-      level: "Success",
-      message: "Firewall blocked suspicious IP address",
-      time: "15 mins ago",
-      color: "#22c55e",
-    },
-  ];
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/alerts")
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((item) => ({
+          ...item,
+          color:
+            item.level === "Critical"
+              ? "#ef4444"
+              : item.level === "High"
+              ? "#f97316"
+              : item.level === "Success"
+              ? "#22c55e"
+              : "#38bdf8",
+        }));
+
+        setNotifications(formatted);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div
@@ -58,7 +56,13 @@ function NotificationCenter() {
                 : "none",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
             <span
               style={{
                 width: "12px",
@@ -70,7 +74,11 @@ function NotificationCenter() {
             ></span>
 
             <div>
-              <strong style={{ color: item.color }}>
+              <strong
+                style={{
+                  color: item.color,
+                }}
+              >
                 {item.level}
               </strong>
 
