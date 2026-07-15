@@ -4,7 +4,7 @@ function DeviceOverview() {
   const [devices, setDevices] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/devices")
+    fetch("http://127.0.0.1:5001/api/devices")
       .then((res) => res.json())
       .then((data) => setDevices(data))
       .catch((err) => console.log(err));

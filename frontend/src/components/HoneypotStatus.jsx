@@ -3,11 +3,24 @@ import { useEffect, useState } from "react";
 function HoneypotStatus() {
   const [devices, setDevices] = useState([]);
 
+  const fetchDevices = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5001/api/devices");
+      const data = await response.json();
+      setDevices(data);
+    } catch (error) {
+      console.error("Error fetching devices:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/devices")
-      .then((res) => res.json())
-      .then((data) => setDevices(data))
-      .catch((err) => console.log(err));
+    fetchDevices();
+
+    const interval = setInterval(() => {
+      fetchDevices();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

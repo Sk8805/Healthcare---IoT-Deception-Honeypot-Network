@@ -4,7 +4,7 @@ function NotificationCenter() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/alerts")
+    fetch("http://127.0.0.1:5001/api/alerts")
       .then((res) => res.json())
       .then((data) => {
         const formatted = data.map((item) => ({

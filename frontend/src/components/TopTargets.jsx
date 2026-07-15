@@ -3,12 +3,32 @@ import { useEffect, useState } from "react";
 function TopTargets() {
   const [devices, setDevices] = useState([]);
 
+  const fetchTargets = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5001/api/top-targets"
+      );
+      const data = await response.json();
+      setDevices(data);
+    } catch (error) {
+      console.error("Error fetching top targets:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/top-targets")
-      .then((res) => res.json())
-      .then((data) => setDevices(data))
-      .catch((err) => console.log(err));
+    fetchTargets();
+
+    const interval = setInterval(() => {
+      fetchTargets();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
+
+  const maxAttacks =
+    devices.length > 0
+      ? Math.max(...devices.map((device) => device.attacks))
+      : 1;
 
   return (
     <div
@@ -45,7 +65,7 @@ function TopTargets() {
           >
             <div
               style={{
-                width: `${device.attacks * 2}%`,
+                width: `${(device.attacks / maxAttacks) * 100}%`,
                 height: "100%",
                 background: "#38bdf8",
                 borderRadius: "10px",

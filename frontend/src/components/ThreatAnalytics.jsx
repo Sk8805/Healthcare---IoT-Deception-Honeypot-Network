@@ -3,11 +3,26 @@ import { useEffect, useState } from "react";
 function ThreatAnalytics() {
   const [analytics, setAnalytics] = useState([]);
 
+  const fetchAnalytics = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5001/api/analytics"
+      );
+      const data = await response.json();
+      setAnalytics(data);
+    } catch (error) {
+      console.error("Error fetching analytics:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/analytics")
-      .then((res) => res.json())
-      .then((data) => setAnalytics(data))
-      .catch((err) => console.log(err));
+    fetchAnalytics();
+
+    const interval = setInterval(() => {
+      fetchAnalytics();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

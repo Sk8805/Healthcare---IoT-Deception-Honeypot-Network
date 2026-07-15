@@ -12,7 +12,7 @@ function AttackChart() {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/chart")
+    fetch("http://127.0.0.1:5001/api/chart")
       .then((res) => res.json())
       .then((data) => {
         const formatted = data.labels.map((label, index) => ({

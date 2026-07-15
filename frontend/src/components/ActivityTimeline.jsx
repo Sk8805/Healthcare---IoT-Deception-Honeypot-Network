@@ -4,7 +4,7 @@ function ActivityTimeline() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/activity")
+    fetch("http://127.0.0.1:5001/api/activity")
       .then((res) => res.json())
       .then((data) => {
         const formatted = data.map((item) => ({

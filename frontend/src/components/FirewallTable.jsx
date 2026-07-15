@@ -4,11 +4,26 @@ function FirewallTable() {
   const [logs, setLogs] = useState([]);
   const [search, setSearch] = useState("");
 
+  const fetchFirewallLogs = async () => {
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:5001/api/firewall-logs"
+      );
+      const data = await response.json();
+      setLogs(data);
+    } catch (error) {
+      console.error("Error fetching firewall logs:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/firewall-logs")
-      .then((res) => res.json())
-      .then((data) => setLogs(data))
-      .catch((err) => console.log(err));
+    fetchFirewallLogs();
+
+    const interval = setInterval(() => {
+      fetchFirewallLogs();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const filteredLogs = logs.filter(
@@ -19,9 +34,8 @@ function FirewallTable() {
       log.severity.toLowerCase().includes(search.toLowerCase())
   );
 
-  const getActionColor = (action) => {
-    return action === "Blocked" ? "#ef4444" : "#22c55e";
-  };
+  const getActionColor = (action) =>
+    action === "Blocked" ? "#ef4444" : "#22c55e";
 
   const getSeverityColor = (severity) => {
     switch (severity) {
@@ -34,7 +48,7 @@ function FirewallTable() {
       case "Low":
         return "#22c55e";
       default:
-        return "white";
+        return "#ffffff";
     }
   };
 
@@ -86,11 +100,8 @@ function FirewallTable() {
           {filteredLogs.map((log, index) => (
             <tr key={index}>
               <td style={tdStyle}>{log.time}</td>
-
               <td style={tdStyle}>{log.source_ip}</td>
-
               <td style={tdStyle}>{log.port}</td>
-
               <td style={tdStyle}>{log.protocol}</td>
 
               <td

@@ -3,11 +3,24 @@ import { useEffect, useState } from "react";
 function SecurityAlerts() {
   const [alerts, setAlerts] = useState([]);
 
+  const fetchAlerts = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5001/api/alerts");
+      const data = await response.json();
+      setAlerts(data);
+    } catch (error) {
+      console.error("Error fetching alerts:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/alerts")
-      .then((res) => res.json())
-      .then((data) => setAlerts(data))
-      .catch((err) => console.log(err));
+    fetchAlerts();
+
+    const interval = setInterval(() => {
+      fetchAlerts();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const getColor = (level) => {

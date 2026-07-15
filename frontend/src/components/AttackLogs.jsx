@@ -4,13 +4,24 @@ function AttackLogs() {
   const [logs, setLogs] = useState([]);
   const [search, setSearch] = useState("");
 
+  const fetchLogs = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5001/api/logs");
+      const data = await response.json();
+      setLogs(data);
+    } catch (error) {
+      console.error("Error fetching attack logs:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/logs")
-      .then((res) => res.json())
-      .then((data) => {
-        setLogs(data);
-      })
-      .catch((err) => console.log(err));
+    fetchLogs();
+
+    const interval = setInterval(() => {
+      fetchLogs();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const filteredLogs = logs.filter(

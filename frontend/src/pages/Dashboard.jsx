@@ -14,13 +14,25 @@ function Dashboard() {
     active_honeypots: 0,
   });
 
+  // Fetch dashboard data
+  const fetchDashboard = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5001/api/dashboard");
+      const data = await response.json();
+      setStats(data);
+    } catch (error) {
+      console.error("Error fetching dashboard:", error);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/dashboard")
-      .then((res) => res.json())
-      .then((data) => {
-        setStats(data);
-      })
-      .catch((err) => console.log(err));
+    fetchDashboard();
+
+    const interval = setInterval(() => {
+      fetchDashboard();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -52,11 +64,8 @@ function Dashboard() {
       </div>
 
       <ActivityTimeline />
-
       <NotificationCenter />
-
       <DeviceOverview />
-
       <AttackChart />
     </>
   );
